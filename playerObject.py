@@ -46,6 +46,11 @@ class Player():
 		 
 		self.player_vx = self.player_vx * self.friction
 		self.player_vy = self.player_vy * self.friction
+
+		if abs(self.player_vx) < 2 :
+			self.player_vx = 0
+		if abs(self.player_vy) < 2 :
+			self.player_vy = 0 
 		
 		self.player_px += self.player_vx * dt
 		self.player_py += self.player_vy * dt

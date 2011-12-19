@@ -15,21 +15,8 @@ user32 = ctypes.windll.user32
 screenWidth = user32.GetSystemMetrics(0)
 screenHeight = user32.GetSystemMetrics(1)
 
-print screenHeight
-print screenWidth
-
-
-player_sprite = pyglet.sprite.Sprite(img=contentContainer.player_image, x=30, y=20)
-
-
-
-
-######
-
-
 
 print ("\n\n\n              Hello and welcome to what's supposed to be Alone \n\n\n")
-
 
 
 ######intro ugly loop
@@ -54,9 +41,6 @@ while True:
 		os.system("cls")
 		print "\n Come on, you have a least 1 friend, right? \n Try again"
 
-
-	
-	
 
 
 
@@ -90,8 +74,8 @@ for window in windowList:
 	time.sleep(0.05)
 
 
-windowWidth = 200
-windowHeight = 300
+windowWidth = 300
+windowHeight = 200
 windowData = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
 
 new_game_window = pyglet.window.Window(windowWidth,windowHeight)
@@ -101,10 +85,18 @@ new_game_window.set_location(int(windowData.player_px), int(windowData.player_py
 
 new_game_window.push_handlers(windowData.key_handler)
 
-friendList = [1]
+friendList = []
+print len(friendList)
+for i in range (0,friendCount-1):
+	tempFriend = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
+	rand_x = random.randint(windowWidth, screenWidth-windowWidth)
+	rand_y = random.randint(windowHeight, screenHeight-windowHeight)
+	tempFriend.player_px = rand_x
+	tempFriend.player_py = rand_y
+	friendList.append(tempFriend)
+	print i
 
-#for i in range (0,friendNumber):
-friendList[0] = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
+#friendList[0] = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
 friendSprite = pyglet.sprite.Sprite(img=contentContainer.friend_green, x=30, y=20)
 
 camera = Camera((0, 0), 100)
@@ -147,7 +139,7 @@ def update(dt):
 
 
 if __name__ == '__main__':
-	pyglet.clock.schedule_interval(update, 1/120.0)
+	pyglet.clock.schedule_interval(update, 1/240.0)
 	pyglet.app.run()
 
 

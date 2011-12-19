@@ -48,6 +48,7 @@ print "Initializing Friend Matrix..."
 
 time.sleep(1)
 
+
 windowList = []
 
 
@@ -55,8 +56,8 @@ for i in range(0,friendCount):
 	rand_width = random.randint(20,screenWidth/2)
 	rand_height = random.randint(20, screenHeight/2)
 
-	rand_x = random.randint(0, screenWidth)
-	rand_y = random.randint(0, screenHeight)
+	rand_x = random.randint(0, screenWidth -rand_width )
+	rand_y = random.randint(0, screenHeight -rand_height )
 
 	game_window = pyglet.window.Window(rand_width,rand_height)
 	game_window.set_location(rand_x, rand_y)
@@ -64,14 +65,33 @@ for i in range(0,friendCount):
 
 	game_window.clear()
 	windowList.append(game_window)
-	time.sleep(0.10)
+	time.sleep(0.075)
 
 
-# time.sleep(5)
+#time.sleep(5)
+for i in range (0,5):
+	for window in windowList:
+		window.clear()
+		window.activate()
+		window.switch_to()
+		time.sleep(0.05)
 
 for window in windowList:
 	window.close()
 	time.sleep(0.05)
+
+
+
+os.system("cls")
+print "\n\n\n\n\n"
+print "Intro Complete \n\n"
+print "You are not alone \n\n\n"
+print "Use the arrow keys to search for your friends \n\n"
+print "Press and hold SPACE to hold on to a friend \n\n"
+print "Beware: friends will hinder your movements when you hold on to them \n\n"
+
+print "Gather all your friend in one place to terminate the simulation"
+
 
 
 windowWidth = 300
@@ -90,7 +110,7 @@ new_game_window.push_handlers(keys)
 
 
 friendList = []
-print len(friendList)
+#print len(friendList)
 for i in range (0,friendCount-1):
 	tempFriend = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
 	rand_x = random.randint(windowWidth, screenWidth-windowWidth)
@@ -98,7 +118,7 @@ for i in range (0,friendCount-1):
 	tempFriend.player_px = rand_x
 	tempFriend.player_py = rand_y
 	friendList.append(tempFriend)
-	print i
+	#print i
 
 #friendList[0] = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
 friendSprite = pyglet.sprite.Sprite(img=contentContainer.friend_green, x=30, y=20)
@@ -140,7 +160,10 @@ def update(dt):
 		capture = True
 	else:
 		capture = False
+		windowData.speed = 5
 	
+
+
 	if capture == True:
 		for friend in friendList:
 			#print "Friend pos: ", friendSprite.x, friendSprite.y
@@ -153,6 +176,8 @@ def update(dt):
 			   #	print "heeeeeeelo \n\n\n\n\n\n\n\n\n"
 			   	friend.player_px = windowData.player_px + windowWidth /2
 			   	friend.player_py = screenHeight - (windowData.player_py + windowHeight )
+
+			   	windowData.speed = windowData.speed * 0.9
 			   	
 			   	continue
 
@@ -175,8 +200,12 @@ def update(dt):
 	
 
 	if winBool == True:
-		print "\n\n\n\n YOU WIIIIIIIIIN \n\n\n\n"
-		new_game_window.close()			   
+		os.system("cls")
+		print "\n\n\n\n ALL FRIENDS FOUND \n\n\n\n"
+		print "SUCCESS"
+
+		new_game_window.close()	
+		time.sleep(5)		   
 
 
 

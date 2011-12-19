@@ -111,11 +111,11 @@ def on_draw():
 	new_game_window.clear()
 #	glClear(GL_COLOR_BUFFER_BIT)
 	camera.update()
-	camera.x = int(windowData.player_px)
-	camera.y = int(screenHeight - windowData.player_py)
+	camera.x = int(windowData.player_px + windowWidth/2 )
+	camera.y = int(screenHeight - (windowData.player_py + windowHeight))
 	
 	camera.focus(windowWidth, windowHeight)
-	print "Camerta pos: ", camera.x, camera.y
+	#print "Camerta pos: ", camera.x, camera.y
 
 	#player_sprite.draw()
 
@@ -123,7 +123,7 @@ def on_draw():
 		friendSprite.x = friend.player_px
 		friendSprite.y = friend.player_py
 		friendSprite.draw()
-		print "Friend pos: ", friendSprite.x, friendSprite.y
+		#print "Friend pos: ", friendSprite.x, friendSprite.y
 	
 
 
@@ -141,7 +141,23 @@ def update(dt):
 	else:
 		capture = False
 	
-	
+	if capture == True:
+		for friend in friendList:
+			#print "Friend pos: ", friendSprite.x, friendSprite.y
+			#print "Camerta pos: ", camera.x, camera.y
+			if(friend.player_px > windowData.player_px 
+			   and friend.player_px <  windowData.player_px + windowWidth ):
+
+			   if( screenHeight -friend.player_py > windowData.player_py 
+			   and screenHeight - friend.player_py < windowData.player_py + windowHeight*1.5 ):
+			   #	print "heeeeeeelo \n\n\n\n\n\n\n\n\n"
+			   	friend.player_px = windowData.player_px + windowWidth /2
+			   	friend.player_py = screenHeight - (windowData.player_py + windowHeight )
+			   	
+			   	continue
+
+			   
+
 
 
 	# for friend in friendList:

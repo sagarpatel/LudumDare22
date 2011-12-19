@@ -15,3 +15,5 @@ player_image = pyglet.resource.image("tri1.png")
 friend_green = pyglet.resource.image("fri_g1.png")
 
 center_image(player_image)
+
+center_image(friend_green)

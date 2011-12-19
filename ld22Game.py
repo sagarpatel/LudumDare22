@@ -156,7 +156,27 @@ def update(dt):
 			   	
 			   	continue
 
-			   
+
+	###check for win:
+
+	win_x = friendList[0].player_px
+	win_y = friendList[1].player_py
+	winBool  = False
+	for friend in friendList:
+		if friend.player_px == win_x:
+			if friend.player_py ==  win_y:
+				winBool = True
+			else:
+				winBool = False
+		else:
+			winBool  = False
+
+		continue
+	
+
+	if winBool == True:
+		print "\n\n\n\n YOU WIIIIIIIIIN \n\n\n\n"
+		new_game_window.close()			   
 
 
 

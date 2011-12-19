@@ -39,7 +39,7 @@ while True:
 		
 	else:
 		os.system("cls")
-		print "\n Come on, you have a least 1 friend, right? \n Try again"
+		print "\n Come on, you have a least 2 friends, right? \n Try again"
 
 
 
@@ -85,6 +85,10 @@ new_game_window.set_location(int(windowData.player_px), int(windowData.player_py
 
 new_game_window.push_handlers(windowData.key_handler)
 
+keys = key.KeyStateHandler()
+new_game_window.push_handlers(keys)
+
+
 friendList = []
 print len(friendList)
 for i in range (0,friendCount-1):
@@ -106,9 +110,10 @@ def on_draw():
 	
 	new_game_window.clear()
 #	glClear(GL_COLOR_BUFFER_BIT)
+	camera.update()
 	camera.x = int(windowData.player_px)
 	camera.y = int(screenHeight - windowData.player_py)
-	camera.update()
+	
 	camera.focus(windowWidth, windowHeight)
 	print "Camerta pos: ", camera.x, camera.y
 
@@ -122,12 +127,21 @@ def on_draw():
 	
 
 
-
+@new_game_window.event
 def update(dt):
 
 	windowData.update(dt)
 
 	new_game_window.set_location(int(windowData.player_px), int(windowData.player_py))
+
+	capture = False
+
+	if keys[key.SPACE]:
+		capture = True
+	else:
+		capture = False
+	
+	
 
 
 	# for friend in friendList:
@@ -140,6 +154,7 @@ def update(dt):
 
 if __name__ == '__main__':
 	pyglet.clock.schedule_interval(update, 1/240.0)
+	#pyglet.clock.schedule(lambda _: None)
 	pyglet.app.run()
 
 

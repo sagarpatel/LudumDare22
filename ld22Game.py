@@ -5,6 +5,7 @@ import pyglet, random, math
 from pyglet.window import key
 import contentContainer
 import playerObject
+from camera import Camera
 
 import ctypes
 
@@ -19,6 +20,7 @@ print screenWidth
 
 
 player_sprite = pyglet.sprite.Sprite(img=contentContainer.player_image, x=30, y=20)
+
 
 
 
@@ -60,7 +62,7 @@ while True:
 
 print "Initializing Friend Matrix..."
 
-time.sleep(3)
+time.sleep(1)
 
 windowList = []
 
@@ -90,19 +92,42 @@ for window in windowList:
 
 windowWidth = 200
 windowHeight = 300
-new_game_window = pyglet.window.Window(windowWidth,windowHeight)
-
-
 windowData = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
+
+new_game_window = pyglet.window.Window(windowWidth,windowHeight)
+new_game_window.set_location(int(windowData.player_px), int(windowData.player_py))
+
+
+
 new_game_window.push_handlers(windowData.key_handler)
 
-@game_window.event
+friendList = [1]
+
+#for i in range (0,friendNumber):
+friendList[0] = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
+friendSprite = pyglet.sprite.Sprite(img=contentContainer.friend_green, x=30, y=20)
+
+camera = Camera((0, 0), 100)
+
+@new_game_window.event
 def on_draw():
-	player_sprite.draw()
 	
-		
+	new_game_window.clear()
+#	glClear(GL_COLOR_BUFFER_BIT)
+	camera.x = int(windowData.player_px)
+	camera.y = int(screenHeight - windowData.player_py)
+	camera.update()
+	camera.focus(windowWidth, windowHeight)
+	print "Camerta pos: ", camera.x, camera.y
 
+	#player_sprite.draw()
 
+	for friend in friendList:
+		friendSprite.x = friend.player_px
+		friendSprite.y = friend.player_py
+		friendSprite.draw()
+		print "Friend pos: ", friendSprite.x, friendSprite.y
+	
 
 
 
@@ -111,14 +136,14 @@ def update(dt):
 	windowData.update(dt)
 
 	new_game_window.set_location(int(windowData.player_px), int(windowData.player_py))
-	# for window in windowList:
-	# 	window.clear()
-	# 	window.activate()
-	# 	window.switch_to()
-	# 	time.sleep(0.1)
 
+
+	# for friend in friendList:
+	# 	friend.player_vx = -windowData.player_vx
+	# 	friend.player_vy = -windowData.player_vy
+	# 	friend.update(dt)
+	# 	print friend.player_px, friend.player_py
 		
-
 
 
 if __name__ == '__main__':

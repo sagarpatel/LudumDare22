@@ -52,8 +52,8 @@ time.sleep(1)
 
 windowList = []
 
-if friendCount > 30:
-	windowCount = 30
+if friendCount > 20:
+	windowCount = 20
 else:
 	windowCount = friendCount
 

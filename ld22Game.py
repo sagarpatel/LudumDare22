@@ -34,6 +34,7 @@ while True:
 		print "Value recieved"
 		if friendCount > 50:
 			friendCount = 50
+			print "\n I'll pretend that you said 50. \n "
 		break
 			
 		
@@ -51,8 +52,12 @@ time.sleep(1)
 
 windowList = []
 
+if friendCount > 30:
+	windowCount = 30
+else:
+	windowCount = friendCount
 
-for i in range(0,friendCount):
+for i in range(0,windowCount):
 	rand_width = random.randint(20,screenWidth/2)
 	rand_height = random.randint(20, screenHeight/2)
 

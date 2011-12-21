@@ -116,7 +116,7 @@ new_game_window.push_handlers(keys)
 
 friendList = []
 #print len(friendList)
-for i in range (0,friendCount-1):
+for i in range (0,friendCount):
 	tempFriend = playerObject.Player(windowWidth, windowHeight, screenWidth,screenHeight)
 	rand_x = random.randint(windowWidth, screenWidth-windowWidth)
 	rand_y = random.randint(windowHeight, screenHeight-windowHeight)
@@ -190,7 +190,7 @@ def update(dt):
 	###check for win:
 
 	win_x = friendList[0].player_px
-	win_y = friendList[1].player_py
+	win_y = friendList[0].player_py
 	winBool  = False
 	for friend in friendList:
 		if friend.player_px == win_x:
